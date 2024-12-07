@@ -50,3 +50,58 @@ export const createRecord = async (domain: string, subDomain: string, type: Reco
     return false
   }
 };
+
+const getRecords = async (domain: string, offset: number = 0, limit: number = 3000) => {
+  const resp = await client.DescribeRecordList({
+    Domain: domain,
+    Offset: offset,
+    Limit: limit,
+  })
+
+  return resp.RecordList || [];
+}
+
+const deleteRecord = async (domain: string, recordId: number) => {
+  try {
+    await client.DeleteRecord({
+      Domain: domain,
+      RecordId: recordId
+    })
+  
+    console.log(`[${new Date().toISOString()}][TencentCloud] Delete record success: ${recordId}`);
+  
+    return true;
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}][TencentCloud] Delete record failed: ${error}`);
+    return false;
+  }
+}
+
+export const cleanRecord = async (domain: string, subDomain: string) => {
+  // 先获取所有记录
+  const size = 500;
+  let offset = 0;
+  
+  const promises: Promise<boolean>[] = [];
+
+  while (true) {
+    console.log(`[${new Date().toISOString()}][TencentCloud] Get records: ${subDomain}.${domain} (offset: ${offset}, size: ${size})`);
+    const records = await getRecords(domain, offset, size);
+
+    if (records.length === 0) {
+      break;
+    }
+
+    for (const record of records) {
+      if (record.Name === `${subDomain}.${domain}`) {
+        promises.push(deleteRecord(domain, record.RecordId));
+      }
+    }
+
+    offset += records.length;
+  }
+
+  await Promise.all(promises);
+
+  console.log(`[${new Date().toISOString()}][TencentCloud] Clean records success`);
+}

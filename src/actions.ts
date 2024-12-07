@@ -1,10 +1,16 @@
 import { getData } from "./data";
-import { createRecord as TencentCloud } from "./providers/tencent";
-import { createRecord as HuaweiCloud } from "./providers/huawei";
+import { createRecord as TencentCloud, cleanRecord as TencentCloudCleanRecord } from "./providers/tencent";
+import { createRecord as HuaweiCloud, cleanRecord as HuaweiCloudCleanRecord } from "./providers/huawei";
 
 const map = {
-  "TencentCloud": TencentCloud,
-  "HuaweiCloud": HuaweiCloud,
+  "TencentCloud": {
+    createRecord: TencentCloud,
+    cleanRecord: TencentCloudCleanRecord,
+  },
+  "HuaweiCloud": {
+    createRecord: HuaweiCloud,
+    cleanRecord: HuaweiCloudCleanRecord,
+  },
 }
 
 const provider = map[process.env.DNS_PROVIDER as keyof typeof map];
@@ -28,15 +34,17 @@ if (!apikey) {
 }
 
 const data = await getData();
+await provider.cleanRecord(domain, subDomain);
+
 for (const item of data) {
   const { isp, v4, v6 } = item;
 
   for (const record of v4) {
-    await provider(domain, subDomain, "A", record.ip, isp);
+    await provider.createRecord(domain, subDomain, "A", record.ip, isp);
   }
 
   for (const record of v6) {
-    await provider(domain, subDomain, "AAAA", record.ip, isp);
+    await provider.createRecord(domain, subDomain, "AAAA", record.ip, isp);
   }
 }
 
