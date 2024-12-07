@@ -1,0 +1,20 @@
+{
+  "name": "nsowo",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "start": "bun run ./src/actions.ts",
+    "dev": "bun run --env-file=.env ./src/actions.ts"
+  },
+  "dependencies": {
+    "@huaweicloud/huaweicloud-sdk-core": "^3.1.126",
+    "@huaweicloud/huaweicloud-sdk-dns": "^3.1.126",
+    "tencentcloud-sdk-nodejs": "^4.0.987"
+  }
+}
