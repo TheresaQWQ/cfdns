@@ -8,10 +8,11 @@ Cloudflare 优选IP自动同步
 - 支持 IPv4 和 IPv6 记录
 - 支持按运营商线路设置解析记录（电信、联通、移动）
 - 支持 GitHub Actions 自动运行
+- 实时监控：https://cf.owonet.work/
 
 ## 购买APIKEY
 
-- 前往 https://cf.owonet.work/ 查看
+- 爱发电：https://afdian.com/item/39d3ede6b4aa11ef8f7452540025c377
 
 ## 本地运行
 
