@@ -39,13 +39,26 @@ await provider.cleanRecord(domain, subDomain);
 for (const item of data) {
   const { isp, v4, v6 } = item;
 
-  for (const record of v4) {
+  const [v4Record, defaultV4Record] = [
+    v4.slice(0, -1),
+    v4.slice(-1)[0]
+  ]
+
+  const [v6Record, defaultV6Record] = [
+    v6.slice(0, -1),
+    v6.slice(-1)[0]
+  ]
+
+  for (const record of v4Record) {
     await provider.createRecord(domain, subDomain, "A", record.ip, isp);
   }
 
   for (const record of v6) {
     await provider.createRecord(domain, subDomain, "AAAA", record.ip, isp);
   }
+
+  await provider.createRecord(domain, subDomain, "A", defaultV4Record.ip, "默认");
+  await provider.createRecord(domain, subDomain, "AAAA", defaultV6Record.ip, "默认");
 }
 
 console.log(`[${new Date().toISOString()}] Sync DNS records for ${domain} with subdomain ${subDomain} completed`);
