@@ -20,8 +20,7 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Read all environment variables
-        run: echo "Reading all environment variables..."
+      - name: Run script
         env:
           DNS_PROVIDER: ${{ secrets.DNS_PROVIDER }}
           DNS_PROVIDER_TENCENT_CLOUD_SECRET_ID: ${{ secrets.DNS_PROVIDER_TENCENT_CLOUD_SECRET_ID }}
@@ -33,6 +32,4 @@ jobs:
           DNS_DOMAIN: ${{ secrets.DNS_DOMAIN }}
           DNS_SUB_DOMAIN: ${{ secrets.DNS_SUB_DOMAIN }}
           NSOWO_API_KEY: ${{ secrets.NSOWO_API_KEY }}
-
-      - name: Run script
         run: bun run start 
