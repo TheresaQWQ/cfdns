@@ -20,5 +20,19 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Read all environment variables
+        run: echo "Reading all environment variables..."
+        env:
+          DNS_PROVIDER: ${{ secrets.DNS_PROVIDER }}
+          DNS_PROVIDER_TENCENT_CLOUD_SECRET_ID: ${{ secrets.DNS_PROVIDER_TENCENT_CLOUD_SECRET_ID }}
+          DNS_PROVIDER_TENCENT_CLOUD_SECRET_KEY: ${{ secrets.DNS_PROVIDER_TENCENT_CLOUD_SECRET_KEY }}
+          DNS_PROVIDER_HUAWEI_CLOUD_AK: ${{ secrets.DNS_PROVIDER_HUAWEI_CLOUD_AK }}
+          DNS_PROVIDER_HUAWEI_CLOUD_SK: ${{ secrets.DNS_PROVIDER_HUAWEI_CLOUD_SK }}
+          DNS_PROVIDER_HUAWEI_CLOUD_PROJECT_ID: ${{ secrets.DNS_PROVIDER_HUAWEI_CLOUD_PROJECT_ID }}
+          DNS_PROVIDER_HUAWEI_CLOUD_ZONE_ID: ${{ secrets.DNS_PROVIDER_HUAWEI_CLOUD_ZONE_ID }}
+          DNS_DOMAIN: ${{ secrets.DNS_DOMAIN }}
+          DNS_SUB_DOMAIN: ${{ secrets.DNS_SUB_DOMAIN }}
+          NSOWO_API_KEY: ${{ secrets.NSOWO_API_KEY }}
+
       - name: Run script
         run: bun run start 
