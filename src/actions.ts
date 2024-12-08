@@ -53,7 +53,7 @@ for (const item of data) {
     await provider.createRecord(domain, subDomain, "A", record.ip, isp);
   }
 
-  for (const record of v6) {
+  for (const record of v6Record) {
     await provider.createRecord(domain, subDomain, "AAAA", record.ip, isp);
   }
 
