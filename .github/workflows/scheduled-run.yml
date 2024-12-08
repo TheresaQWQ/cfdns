@@ -2,7 +2,7 @@ name: Scheduled Script Run
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
