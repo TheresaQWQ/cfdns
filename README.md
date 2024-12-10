@@ -13,6 +13,7 @@ Cloudflare 优选IP自动同步
 ## 购买APIKEY
 
 - 爱发电：https://afdian.com/item/39d3ede6b4aa11ef8f7452540025c377
+- 清风阁：https://shop.owo233.xyz/buy/148
 
 ## 本地运行
 
