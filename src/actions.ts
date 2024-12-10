@@ -57,8 +57,8 @@ for (const item of data) {
     await provider.createRecord(domain, subDomain, "AAAA", record.ip, isp);
   }
 
-  await provider.createRecord(domain, subDomain, "A", defaultV4Record.ip, "默认");
-  await provider.createRecord(domain, subDomain, "AAAA", defaultV6Record.ip, "默认");
+  defaultV4Record && await provider.createRecord(domain, subDomain, "A", defaultV4Record.ip, "默认");
+  defaultV6Record && await provider.createRecord(domain, subDomain, "AAAA", defaultV6Record.ip, "默认");
 }
 
 console.log(`[${new Date().toISOString()}] Sync DNS records for ${domain} with subdomain ${subDomain} completed`);
